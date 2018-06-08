@@ -51,7 +51,7 @@ router.post('/register', (req, res) => {
 // @access  public
 router.post('/login', (req, res) => {
     const email = req.body.email;
-    const password = req.body.psasword;
+    const password = req.body.password;
 
     // find user by email
     User.findOne({ email }).then(user => {
