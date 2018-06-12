@@ -11,7 +11,6 @@ options.secretOrKey = keys.secretOrKey; // from keys file
 module.exports = passport => {
     passport.use(
         new JwtStrategy(options, (jwt_payload, done) => {
-            console.log(jwt_payload);
             User.findById(jwt_payload.id)
                 .then(user => {
                     if (user) {

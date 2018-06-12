@@ -107,7 +107,8 @@ router.get(
         result.json({
             id: req.user.id,
             name: req.user.name,
-            email: req.user.email
+            email: req.user.email,
+            msg: 'Success'
         });
     }
 );
