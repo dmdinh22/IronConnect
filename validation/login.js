@@ -11,6 +11,8 @@ module.exports = function validateLoginInput(data) {
         errors.email = 'Email is invalid.';
     }
 
+    //put this after invalid so it's the last validation check done,
+    // which becomes the error displayed
     if (Validator.isEmpty(data.email)) {
         errors.email = 'Email field is required.';
     }

@@ -66,13 +66,22 @@ router.post('/register', (req, res) => {
 // @desc    log in user / return JWT token
 // @access  public
 router.post('/login', (req, res) => {
+    // destructure errors and isValid properties, pass in request body prop
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    // check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
     const email = req.body.email;
     const password = req.body.password;
 
     // find user by email
     User.findOne({ email }).then(user => {
         if (!user) {
-            return res.status(404).json({ email: 'User not found' });
+            errors.email = 'User not found.';
+            return res.status(404).json(errors);
         }
 
         // check pw match using bcrypt
@@ -101,9 +110,8 @@ router.post('/login', (req, res) => {
                         }
                     );
                 } else {
-                    return res
-                        .status(400)
-                        .json({ password: 'Password incorrect.' });
+                    errors.password = 'Password incorrect.';
+                    return res.status(400).json(errors);
                 }
             });
     });
