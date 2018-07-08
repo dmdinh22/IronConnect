@@ -165,7 +165,7 @@ router.post('/unlike/:id',
     passport.authenticate('jwt', {
         session: false
     }),
-    (req, result) => {
+    (req, res) => {
         Profile.findOne({
             user: req.user.id
         }).then(profile => {
@@ -173,7 +173,7 @@ router.post('/unlike/:id',
                 .then(post => {
                     if (post.likes.filter(like => like.user.toString() === req.user.id)
                         .length == 0) {
-                        return result
+                        return res
                             .status(400)
                             .json({
                                 notliked: 'You have not yet liked this post'
@@ -191,12 +191,54 @@ router.post('/unlike/:id',
                     // save to db
                     post.
                         save()
-                        .then(post => result.json(post));
+                        .then(post => res.json(post));
                 })
-                .catch(error => result.status(404).json({
+                .catch(error => res.status(404).json({
                     postnotfound: 'No post found.'
                 }));
         });
+    }
+);
+
+// @route   POST api/posts/comment/:id
+// @desc    Add comment to post
+// @access  Private
+router.post('/comment/:id',
+    passport.authenticate('jwt', {
+        session: false
+    }),
+    (req, res) => {
+        const {
+            errors,
+            isValid
+        } = validatePostInput(req.body);
+
+        // check validation
+        if (!isValid) {
+            // if any errors, send 400 with error object
+            return res.status(400).json(errors);
+        }
+
+        Post.findById(req.params.id)
+            .then(post => {
+                const newComment = {
+                    text: req.body.text,
+                    name: req.body.name,
+                    avatar: req.body.avatar,
+                    user: req.user.id
+                };
+
+                // add to comments array
+                post.comments.unshift(newComment);
+
+                // save to db
+                post
+                    .save()
+                    .then(post => res.json(post));
+            })
+            .catch(error => res.status(404).json({
+                postnotfound: 'No post found.'
+            }));
     }
 );
 
