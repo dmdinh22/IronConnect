@@ -3,6 +3,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport'); // protected routes
 
+// load validation
+const validateProfileInput = require('../../validation/profile');
+
 // load profile model
 const Profile = require('../../models/Profile');
 
@@ -52,6 +55,7 @@ router.post(
         session: false
     }),
     (req, res) => {
+    // destructure
         const {
             errors,
             isValid
