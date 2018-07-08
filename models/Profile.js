@@ -55,10 +55,10 @@ const ProfileSchema = new Schema({
             type: String
         }
     }],
-    website: {
-        type: String
-    },
     social: {
+        website: {
+            type: String
+        },
         youtube: {
             type: String
         },
