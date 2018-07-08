@@ -261,7 +261,7 @@ router.delete('/comment/:id/:comment_id',
                     return res
                         .status(404)
                         .json({
-                            commentnotexists: 'Comment does not exist'
+                            commentdoesnotexists: 'Comment does not exist'
                         });
                 }
 
