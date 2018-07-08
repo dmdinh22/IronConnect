@@ -22,18 +22,19 @@ router.get('/test', (req, res) => res.json({
 // @route   GET api/posts
 // @desc    Get posts
 // @access  Public
-router.get('/', (req, res) => {
-    Post.find()
-        .sort({
-            date: -1
-        })
-        .then(posts => res.json(posts))
-        .catch(error =>
-            res.status(404).json({
-                nopostsfound: 'No posts found'
+router.get('/',
+    (req, res) => {
+        Post.find()
+            .sort({
+                date: -1
             })
-        );
-});
+            .then(posts => res.json(posts))
+            .catch(error =>
+                res.status(404).json({
+                    nopostsfound: 'No posts found'
+                })
+            );
+    });
 
 // @route   GET api/posts/:id
 // @desc    Get post by id
@@ -114,6 +115,45 @@ router.delete('/:id',
                     postnotfound: 'No post found.'
                 }));
         });
+    }
+);
+
+// @route   POST api/like/:id
+// @desc    Like a post
+// @access  Private
+router.post('/like/:id',
+    passport.authenticate('jwt', {
+        session: false
+    }),
+    (req, res) => {
+        Profile.findOne({
+            user: req.user.id
+        })
+            .then(profile => {
+                Post.findById(req.params.id)
+                    .then(post => {
+                        if (post.likes.filter(like => like.user.toString() === req.user.id)
+                            .length > 0) {
+                            return res
+                                .status(400)
+                                .json({
+                                    alreadliked: 'User already liked this post.'
+                                });
+                        }
+
+                        // add user id to likes array
+                        post.likes.unshift({
+                            user: req.user.id
+                        });
+
+                        post
+                            .save()
+                            .then(post => res.json(post));
+                    })
+                    .catch(error => res.status(404).json({
+                        postnotfound: 'No post found.'
+                    }));
+            });
     }
 );
 
