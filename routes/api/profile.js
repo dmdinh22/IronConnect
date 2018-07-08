@@ -5,6 +5,7 @@ const passport = require('passport'); // protected routes
 
 // load validation
 const validateProfileInput = require('../../validation/profile');
+const validateMeetsInput = require('../../validation/meets');
 
 // load profile model
 const Profile = require('../../models/Profile');
@@ -199,6 +200,49 @@ router.post(
                         .then(profile => res.json(profile));
                 });
             }
+        });
+    }
+);
+
+// @route   POST api/profile/meets
+// @desc    Add meets to profile
+// @access  Private
+router.post(
+    '/meets',
+    passport.authenticate('jwt', {
+        session: false
+    }),
+    (req, res) => {
+        const {
+            errors,
+            isValid
+        } = validateMeetsInput(req.body);
+
+        // Check Validation
+        if (!isValid) {
+            // Return any errors with 400 status
+            return res.status(400).json(errors);
+        }
+
+        Profile.findOne({
+            user: req.user.id
+        }).then(profile => {
+            const newMeet = {
+                title: req.body.title,
+                federation: req.body.federation,
+                location: req.body.location,
+                datestart: req.body.datestart,
+                dateend: req.body.dateend,
+                description: req.body.description,
+                awards: req.body.awards
+            };
+
+            // Add to exp array - unshift to add to beginning
+            profile.meets.unshift(newMeet);
+
+            profile
+                .save()
+                .then(profile => res.json(profile));
         });
     }
 );
