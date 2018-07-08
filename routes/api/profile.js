@@ -247,4 +247,35 @@ router.post(
     }
 );
 
+// @route   DELETE api/profile/meets/:meet_id
+// @desc    Delete meets from profile
+// @access  Private
+router.delete(
+    '/meets/:meet_id',
+    passport.authenticate('jwt', {
+        session: false
+    }),
+    (req, res) => {
+        Profile.findOne({
+            user: req.user.id
+        })
+            .then(profile => {
+                // get remove index
+                const removeIndex = profile.meets
+                    .map(item => item.id)
+                    .indexOf(req.params.exp_id);
+
+                // splice out of array
+                profile.meets.splice(removeIndex, 1);
+
+                // save
+                profile
+                    .save()
+                    .then(profile => res.json(profile));
+            })
+            .catch(error => res.status(404).json(error));
+    }
+);
+
+
 module.exports = router;
