@@ -12,13 +12,10 @@ const ProfileSchema = new Schema({
         required: true,
         max: 40
     },
-    sport: {
-        type: String
-    },
-    website: {
-        type: String
-    },
     location: {
+        type: String
+    },
+    sport: {
         type: String
     },
     skills: {
@@ -37,7 +34,7 @@ const ProfileSchema = new Schema({
             type: String,
             required: true
         },
-        federatuib: {
+        federation: {
             type: String,
             required: true
         },
@@ -53,8 +50,14 @@ const ProfileSchema = new Schema({
         },
         description: {
             type: String
+        },
+        awards: {
+            type: String
         }
     }],
+    website: {
+        type: String
+    },
     social: {
         youtube: {
             type: String
