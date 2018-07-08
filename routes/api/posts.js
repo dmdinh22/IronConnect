@@ -6,6 +6,9 @@ const passport = require('passport');
 // Post model
 const Post = require('../../models/Post');
 
+// Profile model
+const Profile = require('../../models/Profile');
+
 // validation
 const validatePostInput = require('../../validation/post');
 
@@ -27,7 +30,7 @@ router.get('/', (req, res) => {
         .then(posts => res.json(posts))
         .catch(error =>
             res.status(404).json({
-                nopostfound: 'No post found with that id.'
+                nopostsfound: 'No posts found'
             })
         );
 });
@@ -35,11 +38,11 @@ router.get('/', (req, res) => {
 // @route   GET api/posts/:id
 // @desc    Get post by id
 // @access  Public
-router.get('/:id', (req, result) => {
+router.get('/:id', (req, res) => {
     Post.findById(req.params.id)
-        .then(post => result.json(post))
+        .then(post => res.json(post))
         .catch(error =>
-            result.status(404).json({
+            res.status(404).json({
                 nopostfound: 'No post found with that id.'
             })
         );
@@ -48,8 +51,7 @@ router.get('/:id', (req, result) => {
 // @route   POST api/posts
 // @desc    Create post
 // @access  Private
-router.post(
-    '/',
+router.post('/',
     passport.authenticate('jwt', {
         session: false
     }),
@@ -75,6 +77,43 @@ router.post(
         newPost
             .save()
             .then(post => res.json(post));
+    }
+);
+
+// @route   DELETE api/posts/:id
+// @desc    Delete a post
+// @access  Private
+router.delete('/:id',
+    passport.authenticate('jwt', {
+        session: false
+    }),
+    (req, res) => {
+        Profile.findOne({
+            user: req.user.id
+        }).then(profile => {
+            Post.findById(req.params.id)
+                .then(post => {
+                    // check for post owner
+                    // toString because req prop is string
+                    if (post.user.toString() != req.user.id) {
+                        return res
+                            .status(401)
+                            .json({
+                                notauthorized: 'User not authorized.'
+                            });
+                    }
+
+                    // perform delete from db
+                    post
+                        .remove()
+                        .then(() => res.json({
+                            success: true
+                        }));
+                })
+                .catch(error => res.status(404).json({
+                    postnotfound: 'No post found.'
+                }));
+        });
     }
 );
 
