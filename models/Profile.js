@@ -22,7 +22,7 @@ const ProfileSchema = new Schema({
         type: [String], // array of strings
         required: true
     },
-    skilllevel: {
+    skillevel: {
         type: String,
     },
     bio: {
