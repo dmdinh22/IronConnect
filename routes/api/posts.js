@@ -146,6 +146,7 @@ router.post('/like/:id',
                             user: req.user.id
                         });
 
+                        // save to db
                         post
                             .save()
                             .then(post => res.json(post));
@@ -154,6 +155,48 @@ router.post('/like/:id',
                         postnotfound: 'No post found.'
                     }));
             });
+    }
+);
+
+// @route   POST api/unlike/:id
+// @desc    Unlike a post
+// @access  Private
+router.post('/unlike/:id',
+    passport.authenticate('jwt', {
+        session: false
+    }),
+    (req, result) => {
+        Profile.findOne({
+            user: req.user.id
+        }).then(profile => {
+            Post.findById(req.params.id)
+                .then(post => {
+                    if (post.likes.filter(like => like.user.toString() === req.user.id)
+                        .length == 0) {
+                        return result
+                            .status(400)
+                            .json({
+                                notliked: 'You have not yet liked this post'
+                            });
+                    }
+
+                    // get remove index
+                    const removeIndex = post.likes
+                        .map(item => item.user.toString())
+                        .indexOf(req.user.id);
+
+                    // splice out of array
+                    post.likes.splice(removeIndex, 1);
+
+                    // save to db
+                    post.
+                        save()
+                        .then(post => result.json(post));
+                })
+                .catch(error => result.status(404).json({
+                    postnotfound: 'No post found.'
+                }));
+        });
     }
 );
 
