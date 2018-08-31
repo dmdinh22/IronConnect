@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
@@ -39,13 +38,6 @@ class Register extends Component {
         };
 
         this.props.registerUser(newUser);
-
-        // // hit api endpoint for testing - will be done in redux later
-        // axios
-        //     .post('/api/users/register', newUser)
-        //     .then(res => console.log(res.data))
-        //     // set state of error object with response data
-        //     .catch(err => this.setState({ errors: err.response.data }));
     }
 
     render() {
@@ -164,7 +156,8 @@ Register.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+    error: state.errors
 });
 
 export default connect(
