@@ -38,12 +38,12 @@ class Login extends Component {
         e.preventDefault();
 
         // create new user object
-        const newUser = {
+        const userData = {
             email: this.state.email,
             password: this.state.password
         };
 
-        console.log(newUser);
+        this.props.loginUser(userData);
     }
 
     render() {
@@ -120,7 +120,7 @@ Login.propTypes = {
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    erros: state.errors
+    errors: state.errors
 });
 
 export default connect(
