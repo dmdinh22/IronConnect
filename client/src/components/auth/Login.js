@@ -18,6 +18,18 @@ class Login extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    //component lifecycle method
+    componentWillReceiveProps(nextProps) {
+        // if authentitcated, redirect to dashboard
+        if (nextProps.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors });
+        }
+    }
+
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -112,6 +124,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     { loginUser }
 )(Login);
