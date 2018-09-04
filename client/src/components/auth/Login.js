@@ -18,6 +18,13 @@ class Login extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    // don't allow to go to back to login page
+    componentDidMount() {
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+    }
+
     //component lifecycle method
     componentWillReceiveProps(nextProps) {
         // if authentitcated, redirect to dashboard

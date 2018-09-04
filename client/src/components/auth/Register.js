@@ -21,6 +21,13 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    // don't allow to go to back to register page
+    componentDidMount() {
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+    }
+
     // lifecycle method
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
