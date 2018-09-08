@@ -1,19 +1,22 @@
 import axios from 'axios';
-import { GET_PROFILE, PROFILE_LOADING, GET_ERRORS } from './types';
+import { GET_PROFILE, PROFILE_LOADING } from './types';
 
 export const getCurrentProfile = () => dispatch => {
-    dispatch(setProfileLoading()); //set loading state
-    axios.get('/api/profile').then(response =>
-        dispatch({
-            type: GET_PROFILE,
-            payload: response.data
-        }).catch(err =>
+    dispatch(setProfileLoading());
+    axios
+        .get('/api/profile')
+        .then(response =>
+            dispatch({
+                type: GET_PROFILE,
+                payload: response.data
+            })
+        )
+        .catch(error =>
             dispatch({
                 type: GET_PROFILE,
                 payload: {}
             })
-        )
-    );
+        );
 };
 
 // profile loading state

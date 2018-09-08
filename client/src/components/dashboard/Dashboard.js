@@ -4,6 +4,12 @@ import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profileActions';
 
 class Dashboard extends Component {
+    //component lifecycle method
+    componentDidMount() {
+        // calling ajax (action)
+        this.props.getCurrentProfile();
+    }
+
     render() {
         return (
             <div>
