@@ -12,6 +12,7 @@ import Landing from './components/layout/Landing';
 import Footer from './components/layout/Footer';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import Dashboard from './components/dashboard/Dashboard';
 
 import './App.css';
 
@@ -52,6 +53,11 @@ class App extends Component {
                                 component={Register}
                             />
                             <Route exact path="/login" component={Login} />
+                            <Route
+                                exact
+                                path="/dashboard"
+                                component={Dashboard}
+                            />
                         </div>
                         <Footer />
                     </div>
