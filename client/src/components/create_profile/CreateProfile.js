@@ -43,6 +43,16 @@ class CreateProfile extends Component {
     render() {
         const { errors } = this.state; // destructure from this.state
 
+        // select options for sports
+        const options = [
+            { label: '* Select your sport', value: 0 },
+            { label: 'Body Building', value: 'Body Building' },
+            { label: 'Crossfit', value: 'Crossfit' },
+            { label: 'Gym Rat', value: 'Gym Rat' },
+            { label: 'Powerlifting', value: 'Powerlifting' },
+            { label: 'Weightlifting', value: 'Weightlifting' }
+        ];
+
         return (
             <div className="create-profile">
                 <div className="container">
@@ -65,6 +75,15 @@ class CreateProfile extends Component {
                                     onChange={this.onChange}
                                     error={errors.handle}
                                     info="A unique handle for your profile URL. Your full name, company name, nickname."
+                                />
+                                <SelectListGroup
+                                    placeholder="Sport"
+                                    name="sport"
+                                    value={this.state.sport}
+                                    onChange={this.onChange}
+                                    options={options}
+                                    error={errors.handle}
+                                    info="What is your sport?"
                                 />
                             </form>
                         </div>
