@@ -27,6 +27,8 @@ class CreateProfile extends Component {
     }
 
     render() {
+        const { errors } = this.state; // destructure from this.state
+
         return (
             <div className="create-profile">
                 <div className="container">
@@ -41,6 +43,16 @@ class CreateProfile extends Component {
                             <small className="d-block pb-3">
                                 * = required fields
                             </small>
+                            <form onSubmit={this.onSubmit}>
+                                <TextFieldGroup
+                                    placeholder="* Profile Handle"
+                                    name="handle"
+                                    value={this.state.handle}
+                                    onChange={this.onChange}
+                                    error={errors.handle}
+                                    info="A unique handle for your profile URL. Your full name, company name, nickname."
+                                />
+                            </form>
                         </div>
                     </div>
                 </div>
