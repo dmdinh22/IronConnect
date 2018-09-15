@@ -24,6 +24,20 @@ class CreateProfile extends Component {
             instagram: '',
             errors: {}
         };
+
+        // bind click handlers onto component's ctor
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+
+        console.log('submitting...');
+    }
+
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     render() {
