@@ -82,7 +82,7 @@ class CreateProfile extends Component {
                                     value={this.state.sport}
                                     onChange={this.onChange}
                                     options={options}
-                                    error={errors.handle}
+                                    error={errors.sport}
                                     info="What is your sport?"
                                 />
                             </form>
