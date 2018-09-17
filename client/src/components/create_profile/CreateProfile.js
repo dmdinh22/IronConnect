@@ -85,6 +85,47 @@ class CreateProfile extends Component {
                                     error={errors.sport}
                                     info="What is your sport?"
                                 />
+                                <TextFieldGroup
+                                    placeholder="* Profile Handle"
+                                    name="handle"
+                                    value={this.state.handle}
+                                    onChange={this.onChange}
+                                    error={errors.handle}
+                                    info="A unique handle for your profile URL. Your full name, company name, nickname."
+                                />
+                                <TextFieldGroup
+                                    placeholder="Location"
+                                    name="location"
+                                    value={this.state.location}
+                                    onChange={this.onChange}
+                                    error={errors.location}
+                                    info="City & state suggested (eg. Los Angeles, CA)."
+                                />
+                                <TextFieldGroup
+                                    placeholder="* Skills"
+                                    name="skills"
+                                    value={this.state.skills}
+                                    onChange={this.onChange}
+                                    error={errors.skills}
+                                    info="Please use comma separated values (eg.
+                    Squat, Bench, Deadlift, Clean, Snatch."
+                                />
+                                <TextFieldGroup
+                                    placeholder="* Skill Level"
+                                    name="skillevel"
+                                    value={this.state.skillevel}
+                                    onChange={this.onChange}
+                                    error={errors.skillevel}
+                                    info="Rate your skill level as novice, intermediate, advanced, or expert."
+                                />
+                                <TextAreaFieldGroup
+                                    placeholder="Summary about yourself"
+                                    name="bio"
+                                    value={this.state.bio}
+                                    onChange={this.onChange}
+                                    error={errors.bio}
+                                    info="Tell us a little about yourself."
+                                />
                             </form>
                         </div>
                     </div>
