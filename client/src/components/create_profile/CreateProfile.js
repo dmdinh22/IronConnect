@@ -172,14 +172,6 @@ class CreateProfile extends Component {
                                     info="What is your sport?"
                                 />
                                 <TextFieldGroup
-                                    placeholder="* Profile Handle"
-                                    name="handle"
-                                    value={this.state.handle}
-                                    onChange={this.onChange}
-                                    error={errors.handle}
-                                    info="A unique handle for your profile URL. Your full name, company name, nickname."
-                                />
-                                <TextFieldGroup
                                     placeholder="Location"
                                     name="location"
                                     value={this.state.location}
