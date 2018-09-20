@@ -23,37 +23,39 @@ const ProfileSchema = new Schema({
         required: true
     },
     skillevel: {
-        type: String,
+        type: String
     },
     bio: {
         type: String
     },
-    meets: [{
-        title: {
-            type: String,
-            required: true
-        },
-        federation: {
-            type: String,
-            required: true
-        },
-        location: {
-            type: String
-        },
-        datestart: {
-            type: Date,
-            required: true
-        },
-        dateend: {
-            type: Date
-        },
-        description: {
-            type: String
-        },
-        awards: {
-            type: String
+    meets: [
+        {
+            title: {
+                type: String,
+                required: true
+            },
+            federation: {
+                type: String,
+                required: true
+            },
+            location: {
+                type: String
+            },
+            datestart: {
+                type: Date,
+                required: true
+            },
+            dateend: {
+                type: Date
+            },
+            description: {
+                type: String
+            },
+            awards: {
+                type: String
+            }
         }
-    }],
+    ],
     social: {
         website: {
             type: String

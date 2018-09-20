@@ -17,7 +17,7 @@ class EditProfile extends Component {
             location: '',
             sport: '',
             skills: '',
-            skilllevel: '',
+            skillevel: '',
             bio: '',
             website: '',
             twitter: '',
@@ -52,12 +52,12 @@ class EditProfile extends Component {
 
             // if profile field does not exist, make empty string
             profile.location = !isEmpty(profile.location)
-                ? profile.company
+                ? profile.location
                 : '';
 
             profile.sport = !isEmpty(profile.sport) ? profile.sport : '';
-            profile.skilllevel = !isEmpty(profile.skilllevel)
-                ? profile.skilllevel
+            profile.skillevel = !isEmpty(profile.skillevel)
+                ? profile.skillevel
                 : '';
             profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
 
@@ -88,7 +88,7 @@ class EditProfile extends Component {
                 location: profile.location,
                 sport: profile.sport,
                 skills: skillsCSV,
-                skilllevel: profile.skilllevel,
+                skillevel: profile.skillevel,
                 bio: profile.bio,
                 website: profile.website,
                 twitter: profile.twitter,
@@ -108,7 +108,7 @@ class EditProfile extends Component {
             location: this.state.location,
             sport: this.state.sport,
             skills: this.state.skills,
-            skilllevel: this.state.skilllevel,
+            skillevel: this.state.skillevel,
             bio: this.state.bio,
             website: this.state.website,
             twitter: this.state.twitter,
