@@ -7,6 +7,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import { createProfile, getCurrentProfile } from '../../actions/profileActions';
+import isEmpty from '../../validation/is-empty';
 
 class CreateProfile extends Component {
     constructor(props) {
@@ -41,6 +42,61 @@ class CreateProfile extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             this.setState({ errors: nextProps.errors });
+        }
+
+        if (nextProps.profile.profile) {
+            const profile = nextProps.profile.profile;
+
+            // bring skills array back to comma separated value
+            const skillsCSV = profile.skills.join(',');
+
+            // if profile field does not exist, make empty string
+            profile.location = !isEmpty(profile.location)
+                ? profile.company
+                : '';
+
+            profile.sport = !isEmpty(profile.sport) ? profile.sport : '';
+            profile.skillevel = !isEmpty(profile.skillevel)
+                ? profile.skillevel
+                : '';
+            profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
+
+            // social is an opject not string
+            profile.social = !isEmpty(profile.social) ? profile.social : {};
+            profile.website = !isEmpty(profile.social.website)
+                ? profile.social.website
+                : '';
+            profile.twitter = !isEmpty(profile.social.twitter)
+                ? profile.social.twitter
+                : '';
+            profile.facebook = !isEmpty(profile.social.facebook)
+                ? profile.social.facebook
+                : '';
+            profile.linkedin = !isEmpty(profile.social.linkedin)
+                ? profile.social.linkedin
+                : '';
+            profile.youtube = !isEmpty(profile.social.youtube)
+                ? profile.social.youtube
+                : '';
+            profile.instagram = !isEmpty(profile.social.instagram)
+                ? profile.social.instagram
+                : '';
+
+            // set component fields state
+            this.setState({
+                handle: profile.handle,
+                location: profile.location,
+                sport: profile.sport,
+                skills: skillsCSV,
+                skilllevel: skilllevel,
+                bio: profile.bio,
+                website: profile.website,
+                twitter: profile.twitter,
+                facebook: profile.facebook,
+                linkedin: profile.linkedin,
+                youtube: profile.youtube,
+                instagram: profile.instagram
+            });
         }
     }
 
