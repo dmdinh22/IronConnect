@@ -9,7 +9,7 @@ import SelectListGroup from '../common/SelectListGroup';
 import { createProfile, getCurrentProfile } from '../../actions/profileActions';
 import isEmpty from '../../validation/is-empty';
 
-class CreateProfile extends Component {
+class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -56,8 +56,8 @@ class CreateProfile extends Component {
                 : '';
 
             profile.sport = !isEmpty(profile.sport) ? profile.sport : '';
-            profile.skillevel = !isEmpty(profile.skillevel)
-                ? profile.skillevel
+            profile.skilllevel = !isEmpty(profile.skilllevel)
+                ? profile.skilllevel
                 : '';
             profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
 
@@ -88,7 +88,7 @@ class CreateProfile extends Component {
                 location: profile.location,
                 sport: profile.sport,
                 skills: skillsCSV,
-                skilllevel: skilllevel,
+                skilllevel: profile.skilllevel,
                 bio: profile.bio,
                 website: profile.website,
                 twitter: profile.twitter,
@@ -295,7 +295,7 @@ class CreateProfile extends Component {
     }
 }
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
     createProfile: PropTypes.func.isRequired,
     getCurrentProfile: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
@@ -310,4 +310,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { createProfile, getCurrentProfile }
-)(withRouter(CreateProfile));
+)(withRouter(EditProfile));
