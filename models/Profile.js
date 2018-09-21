@@ -22,6 +22,7 @@ const ProfileSchema = new Schema({
         type: [String], // array of strings
         required: true
     },
+    // TODO: fix typo in DB and in model
     skillevel: {
         type: String
     },
