@@ -18,6 +18,7 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/create_profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile';
+import AddMeets from './components/add-meets/AddMeets';
 
 import './App.css';
 
@@ -77,6 +78,13 @@ class App extends Component {
                                     exact
                                     path="/edit-profile"
                                     component={EditProfile}
+                                />
+                            </Switch>
+                            <Switch>
+                                <PrivateRoute
+                                    exact
+                                    path="/add-meets"
+                                    component={AddMeets}
                                 />
                             </Switch>
                         </div>

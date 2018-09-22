@@ -27,7 +27,7 @@ class AddMeets extends Component {
         const { errors } = this.state;
 
         return (
-            <div className="add-meet">
+            <div className="add-meets">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
@@ -50,7 +50,7 @@ class AddMeets extends Component {
     }
 }
 
-AddExperience.propTypes = {
+AddMeets.propTypes = {
     profile: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
