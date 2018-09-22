@@ -22,8 +22,42 @@ class AddMeets extends Component {
         };
     }
     render() {
-        return <div />;
+        // same as
+        // const errors = this.state.errors
+        const { errors } = this.state;
+
+        return (
+            <div className="add-meet">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-8 m-auto">
+                            <Link to="/dashboard" className="btn btn-light">
+                                Go Back
+                            </Link>
+                            <h1 className="display-4 text-center">Add meets</h1>
+                            <p className="lead text-center">
+                                Add any meets or competitions that you've
+                                participated in.
+                            </p>
+                            <div className="d-block pb-3">
+                                * = requred fields
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
     }
 }
 
-export default AddMeets;
+AddExperience.propTypes = {
+    profile: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    profile: state.profile,
+    errors: state.errors
+});
+
+export default connect(mapStateToProps)(withRouter(AddMeets));
