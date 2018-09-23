@@ -20,7 +20,21 @@ class AddMeets extends Component {
             errors: {},
             disabled: false
         };
+
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
+
+    onSubmit(e) {
+        e.preventDefault();
+
+        console.log('submitting...');
+    }
+
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
     render() {
         // same as
         // const errors = this.state.errors
