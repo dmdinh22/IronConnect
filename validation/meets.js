@@ -20,6 +20,10 @@ module.exports = function validateMeetsInput(data) {
         errors.datestart = 'Date start field is required';
     }
 
+    if (Validator.isEmpty(data.dateend)) {
+        errors.dateend = 'Date end field is required';
+    }
+
     return {
         errors,
         isValid: isEmpty(errors)

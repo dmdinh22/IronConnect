@@ -47,7 +47,8 @@ const ProfileSchema = new Schema({
                 required: true
             },
             dateend: {
-                type: Date
+                type: Date,
+                required: true
             },
             description: {
                 type: String
