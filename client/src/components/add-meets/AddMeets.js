@@ -4,6 +4,7 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { addMeets } from '../../actions/profileActions';
 
 class AddMeets extends Component {
     constructor(props) {
@@ -28,7 +29,17 @@ class AddMeets extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        console.log('submitting...');
+        const meetData = {
+            title: this.state.title,
+            federation: this.state.federation,
+            location: this.state.location,
+            datestart: this.state.datestart,
+            dateend: this.state.dateend,
+            description: this.state.description,
+            awards: this.state.awards
+        };
+
+        this.props.addMeets(meetData, this.props.history);
     }
 
     onChange(e) {
@@ -124,6 +135,7 @@ class AddMeets extends Component {
 }
 
 AddMeets.propTypes = {
+    addMeets: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -133,4 +145,7 @@ const mapStateToProps = state => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps)(withRouter(AddMeets));
+export default connect(
+    mapStateToProps,
+    { addMeets }
+)(withRouter(AddMeets));
